@@ -38,7 +38,7 @@ class VectorModelController extends Controller
         return redirect()->route('dokumen.index')->with('success', 'Perhitungan vektor model berhasil.');
     }
 
-    public function calculateCosineSimilarity($queryDocumentId)
+    public function calculateCosineSimilarityAndKNN($queryDocumentId, $K=3)
     {
         // Ambil dokumen query
         $queryDocument = Dokumen::find($queryDocumentId);
@@ -86,13 +86,36 @@ class VectorModelController extends Controller
             ];
         }
 
+
         // Urutkan hasil berdasarkan cosine similarity terbesar ke terkecil
         usort($cosineSimilarities, function ($a, $b) {
             return $b['cosine_similarity'] <=> $a['cosine_similarity'];
         });
 
+        
+        // Pilih K tetangga terdekat
+        $nearestNeighbors = array_slice($cosineSimilarities, 0, $K);
         // $label = $cosineSimilarities['dokumen']->label;
 
-        return view('perhitungan.cosine-similiar', compact('cosineSimilarities'));
+        // Hitung mayoritas kelas atau label dari tetangga terdekat
+        $labelCounts = [];
+
+        foreach ($nearestNeighbors as $neighbor) {
+            // Misalnya, Anda memiliki kolom 'kelas' untuk menyimpan label pada tabel Dokumen
+            $dokumen_id = $neighbor['dokumen']->id;
+            $label = $neighbor['dokumen']->label; // Dapatkan label dari database
+
+            if (!isset($labelCounts[$label])) {
+                $labelCounts[$label] = 0;
+            }
+
+            $labelCounts[$label]++;
+        }
+
+        // Temukan kelas dengan jumlah terbanyak
+        $mostFrequentLabel = array_search(max($labelCounts), $labelCounts);
+
+        // Hasil klasifikasi
+        return view('perhitungan.cosine-similiar', compact('nearestNeighbors', 'mostFrequentLabel', 'K', 'queryDocumentId'));
     }
 }

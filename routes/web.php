@@ -26,7 +26,7 @@ Route::get('/vectormodel', [DokumenController::class, 'showVectorModel']);
 Route::get('/calculate-tfidf', [TFIDFController::class, 'calculateTFIDF'])->name('calculate.tfidf');
 Route::get('/calculate-vector-models', [VectorModelController::class, 'calculateVectorModels'])
     ->name('calculate.vector.models');
-Route::get('/calculate-cosine-similarity/{queryDocumentId}', [VectorModelController::class, 'calculateCosineSimilarity'])
+Route::get('/calculate-cosine-similarity/{queryDocumentId}/{K}', [VectorModelController::class, 'calculateCosineSimilarityAndKNN'])
         ->name('calculate.cosine.similarity');
     
 

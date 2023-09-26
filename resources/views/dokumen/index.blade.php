@@ -10,9 +10,9 @@
             </div>
         @endif
 
-        <a href="{{ route('dokumen.create') }}" class="btn btn-primary">Tambah Dokumen</a>
-        <a href="{{ route('calculate.tfidf') }}" class="btn btn-primary">Hitung TFIDF</a>
-        <a href="{{ route('calculate.vector.models') }}" class="btn btn-primary">Hitung Vector Model</a>
+        <a href="{{ route('dokumen.create') }}" class="btn btn-primary">1. Tambah Dokumen</a>
+        <a href="{{ route('calculate.tfidf') }}" class="btn btn-primary">2. Hitung TFIDF</a>
+        <a href="{{ route('calculate.vector.models') }}" class="btn btn-primary">3. Hitung Vector Model</a>
 
 
 
@@ -38,7 +38,7 @@
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus dokumen ini?')">Hapus</button>
                             </form>
-                            <a href="{{ route('calculate.cosine.similarity', $doc->id) }}" class="btn btn-success">Hitung Cosine Similarity</a>
+                            <a href="{{ route('calculate.cosine.similarity', ['queryDocumentId' => $doc->id, 'K' => 3]) }}" class="btn btn-success">4. Hitung Cosine Similarity dan KNN</a>
                         </td>
                     </tr>
                 @endforeach
