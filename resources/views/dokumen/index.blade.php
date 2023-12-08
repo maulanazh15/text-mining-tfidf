@@ -22,6 +22,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Label</th>
+                    <th>Isi Berita</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -30,6 +31,7 @@
                     <tr>
                         <td>{{ $doc->id }}</td>
                         <td>{{ $doc->label }}</td>
+                        <td>{{ str_word_count($doc->konten) > 5 ? implode(' ', array_slice(str_word_count($doc->konten, 1), 0, 5)) . '...' : $doc->konten }}</td>
                         <td>
                             <a href="{{ route('dokumen.show', $doc->id) }}" class="btn btn-info">Lihat</a>
                             <a href="{{ route('dokumen.edit', $doc->id) }}" class="btn btn-warning">Edit</a>
@@ -44,5 +46,6 @@
                 @endforeach
             </tbody>
         </table>
+        {{ $dokumen->links() }}
     </div>
 @endsection

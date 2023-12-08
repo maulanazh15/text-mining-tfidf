@@ -116,6 +116,6 @@ class VectorModelController extends Controller
         $mostFrequentLabel = array_search(max($labelCounts), $labelCounts);
 
         // Hasil klasifikasi
-        return view('perhitungan.cosine-similiar', compact('nearestNeighbors', 'mostFrequentLabel', 'K', 'queryDocumentId'));
+        return view('perhitungan.cosine-similiar', compact('nearestNeighbors', 'mostFrequentLabel', 'K', 'queryDocumentId', 'queryDocument'));
     }
 }

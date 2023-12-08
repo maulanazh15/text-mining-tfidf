@@ -16,17 +16,17 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="{{ url('/') }}">Home</a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item">
                         <a class="nav-link {{ request()->is('dokumen*') ? 'active' : '' }}" href="{{ route('dokumen.index') }}">Dokumen</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->is('/tfidf') ? 'active' : '' }}" href="{{ url('/tfidf') }}">TFIDF</a>
+                        <a class="nav-link {{ request()->is('tfidf*') ? 'active' : '' }}" href="{{ url('/tfidf') }}">TFIDF</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->is('/vectormodel') ? 'active' : '' }}" href="{{ url('/vectormodel') }}">Vector Model</a>
+                        <a class="nav-link {{ request()->is('vectormodel*') ? 'active' : '' }}" href="{{ url('/vectormodel') }}">Vector Model</a>
                     </li>
                     <!-- Add more navigation links as needed -->
                 </ul>

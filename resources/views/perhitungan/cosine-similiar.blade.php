@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h2>Cosine Similarity</h2>
+    <h2>Cosine Similarity dan KNN</h2>
     <hr>
     <p>Label yang mungkin untuk dokumen ini adalah {{ $mostFrequentLabel }} (K = {{ $K }})</p>
 
@@ -11,6 +11,14 @@
         <label for="kSlider">Pilih Nilai K:</label>
         <input type="range" class="form-control-range" id="kSlider" name="k" min="1" max="10" value="{{ $K }}" onchange="updateKValue(this.value)">
         <span id="kValue">{{ $K }}</span>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Label: {{ $queryDocument->label }}</h5>
+            <p class="card-text">Konten:</p>
+            <p class="card-text">{{ $queryDocument->konten }}</p>
+        </div>
     </div>
 
     @if (count($nearestNeighbors) > 0)

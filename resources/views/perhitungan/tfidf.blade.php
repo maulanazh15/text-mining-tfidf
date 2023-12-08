@@ -25,6 +25,7 @@
                     @endforeach
                 </tbody>
             </table>
+            {{ $tfidfs->links() }}
         @else
             <p>Tidak ada data TF-IDF yang tersedia.</p>
         @endif

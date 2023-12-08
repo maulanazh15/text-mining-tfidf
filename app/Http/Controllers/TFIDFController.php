@@ -53,19 +53,6 @@ class TFIDFController extends Controller
             }
         }
 
-        // // Hitung vektor model untuk setiap dokumen
-        // foreach ($documents as $document) {
-        //     $tfidfValues = TFIDF::where('dokumen_id', $document->id)->pluck('tfidf')->toArray();
-        //     $magnitude = sqrt(array_sum(array_map(function ($value) {
-        //         return pow($value, 2);
-        //     }, $tfidfValues)));
-
-        //     // Simpan vektor model ke dalam tabel VectorModel
-        //     VectorModel::create([
-        //         'dokumen_id' => $document->id,
-        //         'magnitude' => $magnitude,
-        //     ]);
-        // }
 
         return redirect()->route('dokumen.index')->with('success', 'Perhitungan TF-IDF berhasil.');
     }

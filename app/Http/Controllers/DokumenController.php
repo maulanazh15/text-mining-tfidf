@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use StopWords\StopWords;
 use App\Models\Dokumen;
 use App\Http\Requests\StoreDokumenRequest;
 use App\Http\Requests\UpdateDokumenRequest;
@@ -16,7 +16,8 @@ class DokumenController extends Controller
      */
     public function index()
     {
-        $dokumen = Dokumen::all();
+        $dokumen = Dokumen::paginate(10);
+        
         return view('dokumen.index', compact('dokumen'));
     }
 
@@ -83,7 +84,7 @@ class DokumenController extends Controller
     }
 
     public function showTFIDF() {
-        $tfidfs = TFIDF::all();
+        $tfidfs = TFIDF::paginate(10);
 
         return view('perhitungan.tfidf', compact('tfidfs'));
     }

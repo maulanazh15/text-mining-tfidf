@@ -1,6 +1,6 @@
 <?php
-
 namespace App\Helpers;
+use Wamania\Snowball\StemmerFactory;
 
 class TextHelper
 {
@@ -8,7 +8,7 @@ class TextHelper
     {
         // Inisialisasi sebuah string kosong untuk teks hasil
         $filteredText = '';
-
+        $stemmer = StemmerFactory::create('en');
         // Loop melalui setiap karakter dalam teks
         for ($i = 0; $i < mb_strlen($text); $i++) {
             $char = mb_substr($text, $i, 1);
@@ -26,12 +26,14 @@ class TextHelper
         $words = explode(' ', $filteredText);
 
         // Filter kata-kata yang bukan stopwords
-        $filteredWords = array_filter($words, function ($word) use ($stopwords) {
+        $filteredWords = array_filter($words, function ($word) use ($stopwords, $stemmer) {
             // Hilangkan tanda baca dari kata dan ubah menjadi huruf kecil
             $cleanedWord = strtolower(preg_replace('/[^a-zA-Z0-9]+/', '', $word));
+            // Stem the cleaned word
+            $stemmedWord = $stemmer->stem($cleanedWord);
 
-            // Kembalikan false jika kata adalah stopwords atau kosong setelah membersihkan tanda baca
-            return !in_array($cleanedWord, $stopwords) && !empty($cleanedWord);
+            // Return false if the word is a stopword or empty after removing punctuation
+            return !in_array($stemmedWord, $stopwords) && !empty($stemmedWord);
         });
         // dd($filteredWords);
         // Gabungkan kata-kata yang tersisa kembali menjadi teks
